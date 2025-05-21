@@ -3,23 +3,23 @@ import pickle
 from scipy.sparse import csr_matrix
 
 
-with open("models/model.pkl", "rb") as f:#ahmed model
+with open("GoogleExtension/models/model.pkl", "rb") as f:#ahmed model
     model1= pickle.load(f)
-with open("models/vectorizer1.pkl", "rb") as f:# ahmed vectorizer
+with open("GoogleExtension/models/vectorizer1.pkl", "rb") as f:# ahmed vectorizer
     vectorizer1 = pickle.load(f)
 
 
-with open("models/modellg.pkl", "rb") as f:
+with open("GoogleExtension/models/modellg.pkl", "rb") as f:
     modellg = pickle.load(f)
-with open("models/modelnb.pkl", "rb") as f:
+with open("GoogleExtension/models/modelnb.pkl", "rb") as f:
     modelnb = pickle.load(f)
-with open("models/modelsgd.pkl", "rb") as f:
+with open("GoogleExtension/models/modelsgd.pkl", "rb") as f:
     modelsgd = pickle.load(f)
-with open("models/modelrnf.pkl", "rb") as f:
+with open("GoogleExtension/models/modelrnf.pkl", "rb") as f:
     modelrnf = pickle.load(f)
 
 
-with open("models/vectorizer.pkl", "rb") as f:
+with open("GoogleExtension/models/vectorizer.pkl", "rb") as f:
     vectorizer = pickle.load(f)
 
 

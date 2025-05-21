@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS, cross_origin
-from models import check_emails  # Your custom function
+from check import check_emails  # Your custom function
 
 app = Flask(__name__)
 
