@@ -1,0 +1,482 @@
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --spam-color: #ef233c;
+  --legitimate-color: #2b9348;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --gray-color: #6c757d;
+  --light-gray: #e9ecef;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  background-color: #f5f7fa;
+  color: var(--dark-color);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Header Styles */
+.app-header {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+}
+
+.logo-icon {
+  margin-right: 10px;
+}
+
+.subtitle {
+  opacity: 0.9;
+  font-weight: 300;
+  margin-top: 0.5rem;
+}
+
+/* Main Content Styles */
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.analysis-container {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  overflow-x: auto;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.form-header h2 {
+  color: var(--dark-color);
+}
+
+.clear-button {
+  background: none;
+  border: none;
+  color: var(--gray-color);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.2s;
+}
+
+.clear-button:hover {
+  color: var(--primary-color);
+}
+
+.text-area-container {
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 100%;
+}
+
+.text-area-container.with-result {
+  padding-bottom: 40px;
+}
+
+.email-textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: 2px solid var(--light-gray);
+  border-radius: 8px;
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 200px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.email-textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+}
+
+.result-badge {
+  /* Positionnement et taille */
+  display: inline-block; /* Permet d'adapter la largeur au contenu */
+  padding: 0.8rem 1.5rem; /* Augmentez ces valeurs pour agrandir le badge */
+  margin: 15px 0; /* Espacement vertical */
+  font-size: 1rem; /* Taille de police augmentée */
+  font-weight: bold;
+  border-radius: 25px; /* Bords plus arrondis */
+  
+  /* Animation subtile au survol */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  /* Ombre portée pour le relief */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Effet au survol */
+.result-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Couleurs spécifiques */
+.result-badge.spam {
+  background-color: var(--spam-color);
+  color: white;
+}
+
+.result-badge.legitimate {
+  background-color: var(--legitimate-color);
+  color: white;
+}
+
+/* Ajustez le conteneur des résultats */
+.result-display {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espace entre les éléments */
+  margin-top: 10px;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.analyze-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analyze-button:hover:not(:disabled) {
+  background-color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.analyze-button:disabled {
+  background-color: var(--gray-color);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.analyze-button.loading {
+  background-color: var(--primary-color);
+}
+
+.spinner {
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 2px solid white;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error Message Styles */
+.error-message {
+  background-color: #fff3f3;
+  color: var(--spam-color);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-left: 4px solid var(--spam-color);
+}
+
+.error-icon {
+  font-size: 1.2rem;
+}
+
+/* History Section Styles */
+.history-section {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  overflow-x: auto;
+}
+
+.history-title {
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.history-icon {
+  font-size: 1.2rem;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.history-item {
+  background: var(--light-color);
+  padding: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.history-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.history-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.history-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.history-badge.spam {
+  background-color: var(--spam-color);
+}
+
+.history-badge.legitimate {
+  background-color: var(--legitimate-color);
+}
+
+.history-date {
+  font-size: 0.75rem;
+  color: var(--gray-color);
+}
+
+.history-text {
+  color: var(--dark-color);
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Footer Styles */
+.app-footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--gray-color);
+  font-size: 0.9rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Résultats et scores */
+
+
+.score-display {
+  margin-top: 0px;
+}
+
+.score-bar {
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  display: flex;
+  overflow: hidden;
+}
+
+.score-fill {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.spam-score {
+  background-color: #ff4757;
+}
+
+.legitimate-score {
+  background-color: #2ed573;
+}
+
+.score-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  font-size: 0.85rem;
+}
+
+.spam-label {
+  color: #ff4757;
+  font-weight: 500;
+}
+
+.legitimate-label {
+  color: #2ed573;
+  font-weight: 500;
+}
+
+.history-scores {
+  display: flex;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.score-badge {
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.score-badge.spam {
+  background-color: #ffebee;
+  color: #ff4757;
+}
+
+.score-badge.legitimate {
+  background-color: #e8f5e9;
+  color: #2ed573;
+}
+.result-spacer {
+  height: 0px;
+  background-color: var(--light-gray);
+  margin: 15px 0;
+  width: 100%;
+  border: none;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+/* Espacement entre le textarea et les résultats */
+  .result-spacer {
+  height: 0px; /* Ajustez cette valeur selon vos besoins */
+  width: 100%;
+  }
+
+/* Version responsive */
+
+ 
+  .app-header,
+  .analysis-container,
+  .history-section {
+    padding: 1.5rem;
+  }
+
+  .email-textarea {
+    min-height: 150px;
+  }
+
+  .form-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+/* Section des conseils - VERSION GAUCHE */
+.advice-section {
+  background-color: #fff8f8;
+  border-left: 4px solid var(--spam-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  animation: fadeIn 0.5s ease-out;
+  text-align: left;
+}
+
+.advice-title {
+  color: var(--spam-color);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.advice-content {
+  text-align: left;
+}
+
+.advice-content p {
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.advice-list {
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.advice-list li {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  position: relative;
+}
+
+.advice-footer {
+  font-style: italic;
+  color: #666;
+  margin-top: 1rem;
+  padding-left: 0.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
